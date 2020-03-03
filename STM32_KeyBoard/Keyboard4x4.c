@@ -1,19 +1,19 @@
 #include "Keyboard4x4.h"
 
-uint8_t PinX;																																//°´¼üX×ø±ê
-uint8_t PinY;																																//°´¼üY×ø±ê
-uint8_t PressFlag = 0;																											//°´¼üÊÇ·ñ°´ÏÂFLAG
+uint8_t PinX;																																//æŒ‰é”®Xåæ ‡
+uint8_t PinY;																																//æŒ‰é”®Yåæ ‡
+uint8_t PressFlag = 0;																											//æŒ‰é”®æ˜¯å¦æŒ‰ä¸‹FLAG
 
-void KBD_Delayms(uint8_t us);																								//ÄÚ²¿ÓÃÑÓÊ±
-void KBD_Status_1(void);																										//¼üÅÌÒı½ÅÉèÖÃ×´Ì¬1£¬°´¼üÎ´°´ÏÂÊ±µÄ×´Ì¬£¬°´¼ü°´ÏÂºó¿É»ñµÃY×ø±ê
-void KBD_Status_2(void);																										//¼üÅÌÒı½ÅÉèÖÃ×´Ì¬2£¬°´¼ü°´ÏÂºóµÄ×´Ì¬£¬¿É»ñµÃX×ø±ê
+void KBD_Delayms(uint8_t us);																								//å†…éƒ¨ç”¨å»¶æ—¶
+void KBD_Status_1(void);																										//é”®ç›˜å¼•è„šè®¾ç½®çŠ¶æ€1ï¼ŒæŒ‰é”®æœªæŒ‰ä¸‹æ—¶çš„çŠ¶æ€ï¼ŒæŒ‰é”®æŒ‰ä¸‹åå¯è·å¾—Yåæ ‡
+void KBD_Status_2(void);																										//é”®ç›˜å¼•è„šè®¾ç½®çŠ¶æ€2ï¼ŒæŒ‰é”®æŒ‰ä¸‹åçš„çŠ¶æ€ï¼Œå¯è·å¾—Xåæ ‡
 
 void KBD_EXTIfunction(uint16_t GPIO_Pin){
 	GPIO_PinState PinTMP[12];
 	GPIO_TypeDef* GPIO_PORT_TMP;
-	uint8_t PinY_TMP;																													//Ôİ´æY×ø±ê
+	uint8_t PinY_TMP;																													//æš‚å­˜Yåæ ‡
 
-	if(PressFlag) return;																											//ÉÏÒ»¸ö°´ÏÂµÄ°´¼ü»¹Ã»±»¶ÁÈ¡Ê±Ö±½ÓÌø³ö
+	if(PressFlag) return;																											//ä¸Šä¸€ä¸ªæŒ‰ä¸‹çš„æŒ‰é”®è¿˜æ²¡è¢«è¯»å–æ—¶ç›´æ¥è·³å‡º
 	
 	switch(GPIO_Pin){
 		case Y1_Pin:
@@ -34,16 +34,16 @@ void KBD_EXTIfunction(uint16_t GPIO_Pin){
 			break;
 	}
 	
-	for(uint8_t i = 0; i < 3; i++){																						//Y×ø±ê£ºÃ¿1ms¶ÁÈ¡Ò»´ÎÒı½Å£¬È¥¶¶¶¯ÓÃ
+	for(uint8_t i = 0; i < 3; i++){																						//Yåæ ‡ï¼šæ¯1msè¯»å–ä¸€æ¬¡å¼•è„šï¼Œå»æŠ–åŠ¨ç”¨
 		KBD_Delayms(1);
 		PinTMP[i] = HAL_GPIO_ReadPin(GPIO_PORT_TMP, GPIO_Pin);
 	}
 	
-	if(	PinTMP[0] == GPIO_PIN_RESET && 																				//Y×ø±ê£º¶¶¶¯ÅĞ¶¨£¬·Ç¶¶¶¯Ôò½øĞĞX×ø±êÅĞ¶¨
+	if(	PinTMP[0] == GPIO_PIN_RESET && 																				//Yåæ ‡ï¼šæŠ–åŠ¨åˆ¤å®šï¼ŒéæŠ–åŠ¨åˆ™è¿›è¡ŒXåæ ‡åˆ¤å®š
 			PinTMP[1] == GPIO_PIN_RESET && 
 			PinTMP[2] == GPIO_PIN_RESET){
-		KBD_Status_2();																													//½øÈëÒı½ÅÉèÖÃ×´Ì¬2
-		for(uint8_t i = 0; i < 3; i++){																					//X×ø±ê£ºÃ¿1ms¶ÁÈ¡Ò»´ÎÒı½Å£¬È¥¶¶¶¯ÓÃ
+		KBD_Status_2();																													//è¿›å…¥å¼•è„šè®¾ç½®çŠ¶æ€2
+		for(uint8_t i = 0; i < 3; i++){																					//Xåæ ‡ï¼šæ¯1msè¯»å–ä¸€æ¬¡å¼•è„šï¼Œå»æŠ–åŠ¨ç”¨
 			KBD_Delayms(1);
 			PinTMP[4*i] = HAL_GPIO_ReadPin(X1_GPIO_Port, X1_Pin);
 			PinTMP[4*i+1] = HAL_GPIO_ReadPin(X2_GPIO_Port, X2_Pin);
@@ -51,7 +51,7 @@ void KBD_EXTIfunction(uint16_t GPIO_Pin){
 			PinTMP[4*i+3] = HAL_GPIO_ReadPin(X4_GPIO_Port, X4_Pin);
 		}
 		for(uint8_t i = 0; i<4; i++){
-			if(	PinTMP[i] == GPIO_PIN_RESET && 																		//X×ø±ê£º¶¶¶¯ÅĞ¶¨£¬·Ç¶¶¶¯Ôò°´¼ü±»°´ÏÂ
+			if(	PinTMP[i] == GPIO_PIN_RESET && 																		//Xåæ ‡ï¼šæŠ–åŠ¨åˆ¤å®šï¼ŒéæŠ–åŠ¨åˆ™æŒ‰é”®è¢«æŒ‰ä¸‹
 					PinTMP[i+4] == GPIO_PIN_RESET && 
 					PinTMP[i+8] == GPIO_PIN_RESET){
 				PinX = i;
@@ -60,7 +60,7 @@ void KBD_EXTIfunction(uint16_t GPIO_Pin){
 				break;
 			}
 		}		
-		KBD_Status_1();																													//»Øµ½Òı½ÅÉèÖÃ×´Ì¬1
+		KBD_Status_1();																													//å›åˆ°å¼•è„šè®¾ç½®çŠ¶æ€1
 	}
 }
 
@@ -74,7 +74,7 @@ void KBD_Init(void){
 void KBD_Status_1(void){
 	GPIO_InitTypeDef GPIO_InitStruct = {0};
 	
-	/* Òı½Å·´³õÊ¼»¯ */
+	/* å¼•è„šååˆå§‹åŒ– */
 	HAL_GPIO_DeInit(X1_GPIO_Port, X1_Pin);
 	HAL_GPIO_DeInit(X2_GPIO_Port, X2_Pin);
 	HAL_GPIO_DeInit(X3_GPIO_Port, X3_Pin);
@@ -84,7 +84,7 @@ void KBD_Status_1(void){
 	HAL_GPIO_DeInit(Y3_GPIO_Port, Y3_Pin);
 	HAL_GPIO_DeInit(Y4_GPIO_Port, Y4_Pin);
 	
-	/* XÒı½Å³õÊ¼»¯(¸ßËÙÊä³öµÍ) */
+	/* Xå¼•è„šåˆå§‹åŒ–(é«˜é€Ÿè¾“å‡ºä½) */
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
@@ -103,7 +103,7 @@ void KBD_Status_1(void){
 	HAL_GPIO_WritePin(X3_GPIO_Port, X3_Pin, GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(X4_GPIO_Port, X4_Pin, GPIO_PIN_RESET);
 
-  /* YÒı½Å³õÊ¼»¯(ÉÏÀ­ÊäÈë£¬ÏÂ½µÑØ¼ì²âÖĞ¶Ï) */
+  /* Yå¼•è„šåˆå§‹åŒ–(ä¸Šæ‹‰è¾“å…¥ï¼Œä¸‹é™æ²¿æ£€æµ‹ä¸­æ–­) */
   GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
 	
@@ -116,7 +116,7 @@ void KBD_Status_1(void){
   GPIO_InitStruct.Pin = Y4_Pin;
   HAL_GPIO_Init(Y4_GPIO_Port, &GPIO_InitStruct);
 	
-	/* ÖĞ¶Ï¿ªÆô */
+	/* ä¸­æ–­å¼€å¯ */
   HAL_NVIC_SetPriority(PortY_EXTI, 0, 0);
 	HAL_NVIC_ClearPendingIRQ(PortY_EXTI);
   HAL_NVIC_EnableIRQ(PortY_EXTI);
@@ -125,10 +125,10 @@ void KBD_Status_1(void){
 void KBD_Status_2(void){
 	GPIO_InitTypeDef GPIO_InitStruct = {0};
 	
-	/* ÖĞ¶Ï¹Ø±Õ */
+	/* ä¸­æ–­å…³é—­ */
   HAL_NVIC_DisableIRQ(PortY_EXTI);
 	
-	/* Òı½Å·´³õÊ¼»¯ */
+	/* å¼•è„šååˆå§‹åŒ– */
 	HAL_GPIO_DeInit(X1_GPIO_Port, X1_Pin);
 	HAL_GPIO_DeInit(X2_GPIO_Port, X2_Pin);
 	HAL_GPIO_DeInit(X3_GPIO_Port, X3_Pin);
@@ -138,7 +138,7 @@ void KBD_Status_2(void){
 	HAL_GPIO_DeInit(Y3_GPIO_Port, Y3_Pin);
 	HAL_GPIO_DeInit(Y4_GPIO_Port, Y4_Pin);
 	
-	/* YÒı½Å³õÊ¼»¯(¸ßËÙÊä³öµÍ) */
+	/* Yå¼•è„šåˆå§‹åŒ–(é«˜é€Ÿè¾“å‡ºä½) */
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
@@ -157,7 +157,7 @@ void KBD_Status_2(void){
 	HAL_GPIO_WritePin(Y3_GPIO_Port, Y3_Pin, GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(Y4_GPIO_Port, Y4_Pin, GPIO_PIN_RESET);
 
-  /* XÒı½Å³õÊ¼»¯(ÉÏÀ­ÊäÈë) */
+  /* Xå¼•è„šåˆå§‹åŒ–(ä¸Šæ‹‰è¾“å…¥) */
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
 	
