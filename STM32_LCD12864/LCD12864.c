@@ -13,50 +13,50 @@ uint8_t LcdRead(void);
 void LcdSetCursor(unsigned char x, unsigned char y);
 
 /******************************************/
-/*								Íâ²¿º¯Êı								*/
+/*								å¤–éƒ¨å‡½æ•°								*/
 /******************************************/
 
-/*³õÊ¼»¯LCD12864*/
+/*åˆå§‹åŒ–LCD12864*/
 void LcdInit(void){
 	GPIO_InitTypeDef  GPIO_InitStructure;
 	
-	/* ¿ªÆôÊ±ÖÓ£¬ĞèÒªÊÖ¶¯¸ü¸Ä */
+	/* å¼€å¯æ—¶é’Ÿï¼Œéœ€è¦æ‰‹åŠ¨æ›´æ”¹ */
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
-	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP; 		 						//ÍÆÍìÊä³ö
-	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_HIGH;		 					//IO¿ÚËÙ¶ÈÎª50MHz
+	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP; 		 						//æ¨æŒ½è¾“å‡º
+	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_HIGH;		 					//IOå£é€Ÿåº¦ä¸º50MHz
 	
-	HAL_GPIO_WritePin(GPIO_LCD_D_PORT, LCD_D_7_0, GPIO_PIN_SET);	//LCD_D_PORT Êä³ö¸ß
-	GPIO_InitStructure.Pin = LCD_D_7_0;														//GPIO_LCD_D_PORT¶Ë¿ÚÅäÖÃ
-	HAL_GPIO_Init(GPIO_LCD_D_PORT, &GPIO_InitStructure);					//¸ù¾İÉè¶¨²ÎÊı³õÊ¼»¯GPIO_D_PIN
+	HAL_GPIO_WritePin(GPIO_LCD_D_PORT, LCD_D_7_0, GPIO_PIN_SET);	//LCD_D_PORT è¾“å‡ºé«˜
+	GPIO_InitStructure.Pin = LCD_D_7_0;														//GPIO_LCD_D_PORTç«¯å£é…ç½®
+	HAL_GPIO_Init(GPIO_LCD_D_PORT, &GPIO_InitStructure);					//æ ¹æ®è®¾å®šå‚æ•°åˆå§‹åŒ–GPIO_D_PIN
 	
-	HAL_GPIO_WritePin(GPIO_LCD_RS_PORT, LCD_RS, GPIO_PIN_SET); 		//LCD_RS Êä³ö¸ß 
-	GPIO_InitStructure.Pin = LCD_RS;															//LCD_RS,¶Ë¿ÚÅäÖÃ
-	HAL_GPIO_Init(GPIO_LCD_RS_PORT, &GPIO_InitStructure);		 			//¸ù¾İÉè¶¨²ÎÊı³õÊ¼»¯LCD_RS
+	HAL_GPIO_WritePin(GPIO_LCD_RS_PORT, LCD_RS, GPIO_PIN_SET); 		//LCD_RS è¾“å‡ºé«˜ 
+	GPIO_InitStructure.Pin = LCD_RS;															//LCD_RS,ç«¯å£é…ç½®
+	HAL_GPIO_Init(GPIO_LCD_RS_PORT, &GPIO_InitStructure);		 			//æ ¹æ®è®¾å®šå‚æ•°åˆå§‹åŒ–LCD_RS
 	
-	HAL_GPIO_WritePin(GPIO_LCD_RW_PORT, LCD_RW, GPIO_PIN_SET); 		//LCD_RW Êä³ö¸ß 
-	GPIO_InitStructure.Pin = LCD_RW;															//LCD_RW,¶Ë¿ÚÅäÖÃ
-	HAL_GPIO_Init(GPIO_LCD_RW_PORT, &GPIO_InitStructure);					//¸ù¾İÉè¶¨²ÎÊı³õÊ¼»¯LCD_RW
+	HAL_GPIO_WritePin(GPIO_LCD_RW_PORT, LCD_RW, GPIO_PIN_SET); 		//LCD_RW è¾“å‡ºé«˜ 
+	GPIO_InitStructure.Pin = LCD_RW;															//LCD_RW,ç«¯å£é…ç½®
+	HAL_GPIO_Init(GPIO_LCD_RW_PORT, &GPIO_InitStructure);					//æ ¹æ®è®¾å®šå‚æ•°åˆå§‹åŒ–LCD_RW
 	
-	HAL_GPIO_WritePin(GPIO_LCD_E_PORT, LCD_E, GPIO_PIN_SET); 			//LCD_E Êä³ö¸ß 
-	GPIO_InitStructure.Pin = LCD_E;				 												//LCD_E¶Ë¿ÚÅäÖÃ
-	HAL_GPIO_Init(GPIO_LCD_E_PORT, &GPIO_InitStructure);					//¸ù¾İÉè¶¨²ÎÊı³õÊ¼»¯LCD_E
+	HAL_GPIO_WritePin(GPIO_LCD_E_PORT, LCD_E, GPIO_PIN_SET); 			//LCD_E è¾“å‡ºé«˜ 
+	GPIO_InitStructure.Pin = LCD_E;				 												//LCD_Eç«¯å£é…ç½®
+	HAL_GPIO_Init(GPIO_LCD_E_PORT, &GPIO_InitStructure);					//æ ¹æ®è®¾å®šå‚æ•°åˆå§‹åŒ–LCD_E
 	
-	LcdWriteCmd(0x30);  																					//»ù±¾Ö¸Áî¼¯
-	LcdWriteCmd(0x0C);  																					//ÏÔÊ¾Æ÷¿ª£¬¹â±ê¹Ø±Õ
-	LcdWriteCmd(0x06);  																					//ÎÄ×Ö²»¶¯£¬µØÖ·×Ô¶¯+1
-	LcdWriteCmd(0x01);  																					//ÇåÆÁ
+	LcdWriteCmd(0x30);  																					//åŸºæœ¬æŒ‡ä»¤é›†
+	LcdWriteCmd(0x0C);  																					//æ˜¾ç¤ºå™¨å¼€ï¼Œå…‰æ ‡å…³é—­
+	LcdWriteCmd(0x06);  																					//æ–‡å­—ä¸åŠ¨ï¼Œåœ°å€è‡ªåŠ¨+1
+	LcdWriteCmd(0x01);  																					//æ¸…å±
 }
 
-/* ÔÚÒº¾§ÉÏÏÔÊ¾×Ö·û´®£¬(x,y)-¶ÔÓ¦ÆÁÄ»ÉÏµÄÆğÊ¼×ø±ê£¬str-×Ö·û´®Ö¸Õë */
+/* åœ¨æ¶²æ™¶ä¸Šæ˜¾ç¤ºå­—ç¬¦ä¸²ï¼Œ(x,y)-å¯¹åº”å±å¹•ä¸Šçš„èµ·å§‹åæ ‡ï¼Œstr-å­—ç¬¦ä¸²æŒ‡é’ˆ */
 void LcdShowStr(unsigned char column, unsigned char row, unsigned char str[]){
 	unsigned char n = 0, a;
 	unsigned char *fore_str;
-	LcdSetCursor(column, row);   																	//ÉèÖÃÆğÊ¼µØÖ·
-	while(*str != '\0')  																					//Á¬ĞøĞ´Èë×Ö·û´®Êı¾İ£¬Ö±µ½¼ì²âµ½½áÊø·û
+	LcdSetCursor(column, row);   																	//è®¾ç½®èµ·å§‹åœ°å€
+	while(*str != '\0')  																					//è¿ç»­å†™å…¥å­—ç¬¦ä¸²æ•°æ®ï¼Œç›´åˆ°æ£€æµ‹åˆ°ç»“æŸç¬¦
 	{
 
-		if((n + 1) % 2 == 0){																				//ÆæÊıµØÖ·
+		if((n + 1) % 2 == 0){																				//å¥‡æ•°åœ°å€
 			fore_str = str - 1;
 			if(*fore_str>0x80){
 				LcdWriteDat(*str++);
@@ -64,7 +64,7 @@ void LcdShowStr(unsigned char column, unsigned char row, unsigned char str[]){
 			else if(*str>0x80)			LcdWriteDat(' ');
 			else if(*str <= 0x80)	LcdWriteDat(*str++);
 		}
-		else	LcdWriteDat(*str++); 																	//ÏÈÈ¡strÖ¸ÏòµÄÊı¾İ£¬È»ºóstr×Ô¼Ó1
+		else	LcdWriteDat(*str++); 																	//å…ˆå–stræŒ‡å‘çš„æ•°æ®ï¼Œç„¶åstrè‡ªåŠ 1
 		n++;
 
 		if((n + 2 * column) % 16 == 0){
@@ -97,7 +97,7 @@ void LcdShowStr(unsigned char column, unsigned char row, unsigned char str[]){
 	}
 }
 
-/*½«Êı×ÖºÍ×ÖÄ¸×ª»¯ÎªGBK±àÂë£¬½öGBK±àÂë¿ÉÓÃLcdShowStr()Êä³ö*/
+/*å°†æ•°å­—å’Œå­—æ¯è½¬åŒ–ä¸ºGBKç¼–ç ï¼Œä»…GBKç¼–ç å¯ç”¨LcdShowStr()è¾“å‡º*/
 uint8_t* LcdGBK(uint8_t* data, uint8_t length){
 	static uint8_t GBK[64];
 	uint8_t i=0;
@@ -174,7 +174,7 @@ uint8_t* LcdGBK(uint8_t* data, uint8_t length){
 	return GBK;
 }
 
-/*ÏÔÊ¾Í¼Ïñ£¬xyÎªºá×İ×ø±ê£¬whÎª¿í¸ß(¶¼ÒÔÏñËØÎªµ¥Î»)£¬xw±ØĞëÎª16µÄÕûÊı±¶£¬yÓëh¿ÉÒÔÎª0-63µÄÈÎÒâÖµ*/
+/*æ˜¾ç¤ºå›¾åƒï¼Œxyä¸ºæ¨ªçºµåæ ‡ï¼Œwhä¸ºå®½é«˜(éƒ½ä»¥åƒç´ ä¸ºå•ä½)ï¼Œxwå¿…é¡»ä¸º16çš„æ•´æ•°å€ï¼Œyä¸hå¯ä»¥ä¸º0-63çš„ä»»æ„å€¼*/
 void LcdShowImage(uint8_t x, uint8_t y, uint8_t w, uint8_t h, uint8_t *img){
 	uint16_t i;
 	uint8_t xi, yi;
@@ -183,7 +183,7 @@ void LcdShowImage(uint8_t x, uint8_t y, uint8_t w, uint8_t h, uint8_t *img){
 	x >>= 4;
 	w >>= 4;
 	i = 0;
-	LcdWriteCmd(0x36); 																						//Æô¶¯CGRAM²Ù×÷
+	LcdWriteCmd(0x36); 																						//å¯åŠ¨CGRAMæ“ä½œ
 
 	for(yi = 0; yi<h; yi++){
 		yt = y + yi;
@@ -201,14 +201,14 @@ void LcdShowImage(uint8_t x, uint8_t y, uint8_t w, uint8_t h, uint8_t *img){
 	}
 }
 
-/*Çå³ıÆÁÄ»ÉÏÒ»¸öÇø¿éµÄÇøÓò£¬xywhÍ¬LcdShowImage()*/
+/*æ¸…é™¤å±å¹•ä¸Šä¸€ä¸ªåŒºå—çš„åŒºåŸŸï¼ŒxywhåŒLcdShowImage()*/
 void LcdClearArea(uint8_t x, uint8_t y, uint8_t w, uint8_t h){
 	uint8_t xi, yi;
 	uint8_t xt, yt;
 
 	x >>= 4;
 	w >>= 4;
-	LcdWriteCmd(0x36); 																						//Æô¶¯CGRAM²Ù×÷
+	LcdWriteCmd(0x36); 																						//å¯åŠ¨CGRAMæ“ä½œ
 
 	for(yi = 0; yi<h; yi++){
 		yt = y + yi;
@@ -227,39 +227,39 @@ void LcdClearArea(uint8_t x, uint8_t y, uint8_t w, uint8_t h){
 }
 void LcdClearAll(void){
 	LcdWriteCmd(0x30);
-	LcdWriteCmd(0x01);  																					//ÇåÆÁ
+	LcdWriteCmd(0x01);  																					//æ¸…å±
 }
 
 /******************************************/
-/*								ÄÚ²¿º¯Êı								*/
+/*								å†…éƒ¨å‡½æ•°								*/
 /******************************************/
 
-/*ÑÓÊ±*/
+/*å»¶æ—¶*/
 void MY_Delay_us(uint8_t us){
 	for(int i = 0; i <8*us; i++);
 }
 
-/*Êä³öÄ£Ê½*/
+/*è¾“å‡ºæ¨¡å¼*/
 void LcdOutputMode(void){
 	GPIO_InitTypeDef  GPIO_InitStructure;
-	HAL_GPIO_WritePin(GPIO_LCD_D_PORT, LCD_D_7_0, GPIO_PIN_SET);	//GPIO_LCD_D_PORTÊä³ö¸ß
-	GPIO_InitStructure.Pin = LCD_D_7_0;				 										//GPIO_LCD_D_PORT¶Ë¿ÚÅäÖÃ
-	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP; 		 						//ÍÆÍìÊä³ö
-	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_HIGH;		 					//IO¿ÚËÙ¶ÈÎª50MHz
-	HAL_GPIO_Init(GPIO_LCD_D_PORT, &GPIO_InitStructure);					//¸ù¾İÉè¶¨²ÎÊı³õÊ¼»¯GPIO_LCD_D_PORT
+	HAL_GPIO_WritePin(GPIO_LCD_D_PORT, LCD_D_7_0, GPIO_PIN_SET);	//GPIO_LCD_D_PORTè¾“å‡ºé«˜
+	GPIO_InitStructure.Pin = LCD_D_7_0;				 										//GPIO_LCD_D_PORTç«¯å£é…ç½®
+	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP; 		 						//æ¨æŒ½è¾“å‡º
+	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_HIGH;		 					//IOå£é€Ÿåº¦ä¸º50MHz
+	HAL_GPIO_Init(GPIO_LCD_D_PORT, &GPIO_InitStructure);					//æ ¹æ®è®¾å®šå‚æ•°åˆå§‹åŒ–GPIO_LCD_D_PORT
 }
 
-/*ÊäÈëÄ£Ê½*/
+/*è¾“å…¥æ¨¡å¼*/
 void LcdInputMode(void){
 	GPIO_InitTypeDef  GPIO_InitStructure;
-	HAL_GPIO_WritePin(GPIO_LCD_D_PORT, LCD_D_7_0, GPIO_PIN_SET);	//PG.0 Êä³ö¸ß
-	GPIO_InitStructure.Pin = LCD_D_7_0;				 										//GPIO_LCD_D_PORT¶Ë¿ÚÅäÖÃ
-	GPIO_InitStructure.Mode = GPIO_MODE_INPUT; 		 								//ÉÏÀ­ÊäÈë
-	GPIO_InitStructure.Pull = GPIO_PULLUP;												//ÉÏÀ­ÊäÈë
-	HAL_GPIO_Init(GPIO_LCD_D_PORT, &GPIO_InitStructure);					//¸ù¾İÉè¶¨²ÎÊı³õÊ¼»¯GPIO_LCD_D_PORT
+	HAL_GPIO_WritePin(GPIO_LCD_D_PORT, LCD_D_7_0, GPIO_PIN_SET);	//PG.0 è¾“å‡ºé«˜
+	GPIO_InitStructure.Pin = LCD_D_7_0;				 										//GPIO_LCD_D_PORTç«¯å£é…ç½®
+	GPIO_InitStructure.Mode = GPIO_MODE_INPUT; 		 								//ä¸Šæ‹‰è¾“å…¥
+	GPIO_InitStructure.Pull = GPIO_PULLUP;												//ä¸Šæ‹‰è¾“å…¥
+	HAL_GPIO_Init(GPIO_LCD_D_PORT, &GPIO_InitStructure);					//æ ¹æ®è®¾å®šå‚æ•°åˆå§‹åŒ–GPIO_LCD_D_PORT
 }
 
-/* ÏòLCD1602Òº¾§Ğ´ÈëÒ»×Ö½ÚÃüÁî£¬cmd-´ıĞ´ÈëÃüÁîÖµ */
+/* å‘LCD1602æ¶²æ™¶å†™å…¥ä¸€å­—èŠ‚å‘½ä»¤ï¼Œcmd-å¾…å†™å…¥å‘½ä»¤å€¼ */
 void LcdWriteCmd(unsigned char cmd){
 	MY_Delay_us(1);
 	HAL_GPIO_WritePin(GPIO_LCD_RS_PORT, LCD_RS, GPIO_PIN_RESET);
@@ -274,7 +274,7 @@ void LcdWriteCmd(unsigned char cmd){
 	MY_Delay_us(1);
 }
 
-/* ÏòLCD1602Òº¾§Ğ´ÈëÒ»×Ö½ÚÊı¾İ£¬dat-´ıĞ´ÈëÊı¾İÖµ */
+/* å‘LCD1602æ¶²æ™¶å†™å…¥ä¸€å­—èŠ‚æ•°æ®ï¼Œdat-å¾…å†™å…¥æ•°æ®å€¼ */
 void LcdWriteDat(unsigned char dat){
 	MY_Delay_us(1);
 	HAL_GPIO_WritePin(GPIO_LCD_RS_PORT, LCD_RS, GPIO_PIN_SET);
@@ -289,7 +289,7 @@ void LcdWriteDat(unsigned char dat){
 	MY_Delay_us(1);
 }
 
-/*½«dataÊä³öµ½D0~D7¿Ú*/
+/*å°†dataè¾“å‡ºåˆ°D0~D7å£*/
 void LcdWrite(uint8_t data){
 	uint32_t tmp = 0;
 	
@@ -305,7 +305,7 @@ void LcdWrite(uint8_t data){
 	GPIO_LCD_D_PORT->BSRR = tmp;
 }
 
-/*´ÓD0~D7¶ÁÈ¡ÊıÖµ*/
+/*ä»D0~D7è¯»å–æ•°å€¼*/
 uint8_t LcdRead(void){
 	uint16_t tmp = (uint16_t)GPIO_LCD_D_PORT->IDR;
 	uint8_t value = 0;
@@ -322,20 +322,20 @@ uint8_t LcdRead(void){
 	return value;
 }
 
-/* ÉèÖÃÏÔÊ¾RAMÆğÊ¼µØÖ·£¬Òà¼´¹â±êÎ»ÖÃ£¬(x,y)-¶ÔÓ¦ÆÁÄ»ÉÏµÄ×Ö·û×ø±ê */
+/* è®¾ç½®æ˜¾ç¤ºRAMèµ·å§‹åœ°å€ï¼Œäº¦å³å…‰æ ‡ä½ç½®ï¼Œ(x,y)-å¯¹åº”å±å¹•ä¸Šçš„å­—ç¬¦åæ ‡ */
 void LcdSetCursor(unsigned char x, unsigned char y){
 	unsigned char addr;
 
-	if(y >= 2){	   																								//ÏÔÊ¾ÔÚÓÒ°ëÆÁ
+	if(y >= 2){	   																								//æ˜¾ç¤ºåœ¨å³åŠå±
 		y -= 2;
-		x += 8;																											//xÓÒÅ²8¸öºº×Ö
+		x += 8;																											//xå³æŒª8ä¸ªæ±‰å­—
 	}
 	addr = y * 16 + x;																						
-	LcdWriteCmd(0x30); 																						//Æô¶¯DDRAM²Ù×÷
-	LcdWriteCmd(0x80 | addr);																			//ÉèÖÃramµØÖ·
+	LcdWriteCmd(0x30); 																						//å¯åŠ¨DDRAMæ“ä½œ
+	LcdWriteCmd(0x80 | addr);																			//è®¾ç½®ramåœ°å€
 }
 
-/* "ºÍ" 16 X 16 */
+/* "å’Œ" 16 X 16 */
 uint8_t HE[] = {
 	0x20,0x00,0x70,0x00,0x1E,0x00,0x10,0x3E,0x10,0x22,0xFF,0x22,0x10,0x22,0x18,0x22,0x38,0x22,0x54,0x22,0x54,0x22,0x12,0x22,0x11,0x3E,0x10,0x22,0x10,0x00,0x10,0x00
 };
@@ -344,7 +344,7 @@ uint8_t LOGO[] = {
 	0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x80,0x0F,0xE0,0x3F,0xE0,0x7F,0xF0,0x7F,0xF8,0x7D,0xF0,0x3C,0xD0,0x2C,0x30,0x30,0x70,0x38,0xE0,0x1F,0x00,0x00,0x00,0x00
 };
 
-/* ¶şÎ¬Âë£¬64 X 64 */
+/* äºŒç»´ç ï¼Œ64 X 64 */
 uint8_t QRCODE[] = {
 0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,
 0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,
